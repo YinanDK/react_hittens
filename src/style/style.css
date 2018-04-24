@@ -1,0 +1,35 @@
+nav {
+  padding-top: 20px;
+}
+
+.card-container{
+  padding: 20px 0;
+
+}
+.card-element-container{
+  border: solid 1px black;
+  border-radius: 5px;
+
+  padding: 10px;
+
+}
+.picture_container,
+.bottom_btn{
+  text-align: center;
+}
+.picture_container{
+  height: 20vw;
+  width: 100%;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.resultImage
+{
+  width: 100%;
+  height: auto;
+}
+.titleNameBlock
+{
+  height:80px;
+  overflow: hidden;
+}
