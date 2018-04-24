@@ -11,7 +11,7 @@ const CardListElement = ({card})=>{
           </div>
           <div className="titleNameBlock"><h3>Title: {card.title}</h3></div>
           <div className="bottom_btn">
-            <Link className="btn btn-primary" to={'/home/'+card.id}>View</Link>
+            <Link className="btn btn-primary" to={'/'+card.id}>View</Link>
           </div>
     </div>
   );

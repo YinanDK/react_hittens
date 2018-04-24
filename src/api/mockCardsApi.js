@@ -46,7 +46,13 @@ const cards = [
     image: "https://www.planwallpaper.com/static/images/121.jpg"
   }
 ];
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
 
+const generateId = (card) => {
+  return replaceAll(card.title, ' ', '-');
+};
 
 class CardApi {
   static getAllCards() {
@@ -56,21 +62,32 @@ class CardApi {
       }, delay);
     });
   }
-  static getCardByID(card){
+
+  static saveCard(card) {
     card = Object.assign({}, card); // to avoid manipulating object passed in.
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        // Simulate server-side validation
+        const minCardTitleLength = 1;
+        if (card.title.length < minCardTitleLength) {
+          reject(`Title must be at least ${minCardTitleLength} characters.`);
+        }
 
         if (card.id) {
           const existingCardIndex = cards.findIndex(a => a.id == card.id);
           cards.splice(existingCardIndex, 1, card);
+        } else {
+          //Just simulating creation here.
+          //The server would generate ids and watchHref's for new courses in a real app.
+          //Cloning so copy returned is passed by value rather than by reference.
+          card.id = generateId(card);
+          cards.push(card);
         }
 
         resolve(card);
       }, delay);
     });
   }
-
 }
 
-export default CardApi;
+  export default CardApi;

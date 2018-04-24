@@ -36308,7 +36308,9 @@
 	  value: true
 	});
 	exports.loadCardsSucess = loadCardsSucess;
+	exports.displayCardSucess = displayCardSucess;
 	exports.loadCards = loadCards;
+	exports.displayCard = displayCard;
 
 	var _mockCardsApi = __webpack_require__(586);
 
@@ -36320,11 +36322,28 @@
 	  return { type: 'LOAD_CARDS_SUCCESS', cards: cards };
 	}
 
+	function displayCardSucess(cards) {
+	  return { type: 'DISPLAY_CARD_SUCCESS', cards: cards };
+	}
+
 	function loadCards() {
 	  return function (dispatch) {
 
 	    return _mockCardsApi2.default.getAllCards().then(function (cards) {
 	      dispatch(loadCardsSucess(cards));
+	    }).catch(function (error) {
+	      throw error;
+	    });
+	  };
+	}
+
+	function displayCard() {
+	  return function (dispatch) {
+
+	    return _mockCardsApi2.default.getCardByID(card).then(function (displayedCard) {
+	      if (card.id) {
+	        dispatch(displayCardSucess(displayedCard));
+	      }
 	    }).catch(function (error) {
 	      throw error;
 	    });
@@ -36401,6 +36420,24 @@
 	      return new Promise(function (resolve, reject) {
 	        setTimeout(function () {
 	          resolve(Object.assign([], cards));
+	        }, _delay2.default);
+	      });
+	    }
+	  }, {
+	    key: "getCardByID",
+	    value: function getCardByID(card) {
+	      card = Object.assign({}, card); // to avoid manipulating object passed in.
+	      return new Promise(function (resolve, reject) {
+	        setTimeout(function () {
+
+	          if (card.id) {
+	            var existingCardIndex = cards.findIndex(function (a) {
+	              return a.id == card.id;
+	            });
+	            cards.splice(existingCardIndex, 1, card);
+	          }
+
+	          resolve(card);
 	        }, _delay2.default);
 	      });
 	    }
@@ -36484,37 +36521,29 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'col-lg-4 card-container' },
+	    { className: 'col-sm-4 card-container card-element-container' },
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'card-element-container' },
+	      { className: 'picture_container' },
+	      _react2.default.createElement('img', { src: card.image, className: 'resultImage' })
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'titleNameBlock' },
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'picture_container' },
-	        _react2.default.createElement('img', { src: card.image, width: '100%' })
-	      ),
-	      _react2.default.createElement(
-	        'div',
+	        'h3',
 	        null,
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Title: ',
-	          card.title
-	        ),
-	        '`',
-	        card.image,
-	        ' ` '
-	      ),
+	        'Title: ',
+	        card.title
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'bottom_btn' },
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'bottom_btn' },
-	        _react2.default.createElement('input', {
-	          type: 'submit',
-	          value: 'View',
-	          className: ' btn btn-primary'
-	          //onClick={this.redirectToAddCoursePage}
-	        })
+	        _reactRouter.Link,
+	        { className: 'btn btn-primary', to: '/home/' + card.id },
+	        'View'
 	      )
 	    )
 	  );
@@ -36548,6 +36577,10 @@
 
 	var _reactRouter = __webpack_require__(494);
 
+	var _CardListElement = __webpack_require__(589);
+
+	var _CardListElement2 = _interopRequireDefault(_CardListElement);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36563,7 +36596,13 @@
 	  function ManageCardPage(props, context) {
 	    _classCallCheck(this, ManageCardPage);
 
-	    return _possibleConstructorReturn(this, (ManageCardPage.__proto__ || Object.getPrototypeOf(ManageCardPage)).call(this, props, context));
+	    var _this = _possibleConstructorReturn(this, (ManageCardPage.__proto__ || Object.getPrototypeOf(ManageCardPage)).call(this, props, context));
+
+	    _this.state = {
+	      card: Object.assign({}, _this.props.card)
+	    };
+
+	    return _this;
 	  }
 
 	  _createClass(ManageCardPage, [{
@@ -36577,13 +36616,26 @@
 	          'h1',
 	          null,
 	          'Home page'
-	        )
+	        ),
+	        _react2.default.createElement(CardFrom, {
+	          allAuthors: this.props.authors,
+	          onChange: this.updateCourseState,
+	          onSave: this.saveCourse,
+	          course: this.state.course,
+	          errors: this.state.errors,
+	          loading: this.state.saving
+	        })
 	      );
 	    }
 	  }]);
 
 	  return ManageCardPage;
 	}(_react2.default.Component);
+
+	ManageCardPage.propTypes = {
+	  card: _react.PropTypes.object.isRequired,
+	  action: _react.PropTypes.object
+	};
 
 	exports.default = ManageCardPage;
 
@@ -36660,6 +36712,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	function cardsReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _InitialState2.default.cards;
 	  var action = arguments[1];
@@ -36668,6 +36722,11 @@
 	  switch (action.type) {
 	    case 'LOAD_CARDS_SUCCESS':
 	      return action.cards;
+
+	    case 'DISPLAY_CARD_SUCCESS':
+	      return [].concat(_toConsumableArray(state.filter(function (course) {
+	        return course.id !== action.course.id;
+	      })), [Object.assign({}, action.course)]);
 
 	    default:
 	      return state;
@@ -36938,7 +36997,7 @@
 
 
 	// module
-	exports.push([module.id, "nav {\n  padding-top: 20px;\n}\n\n.card-container{\n  padding: 20px 0;\n}\n.card-element-container{\n  border: solid 1px black;\n  border-radius: 5px;\n\n  padding: 10px;\n\n}\n.picture_container,\n.bottom_btn{\n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "nav {\n  padding-top: 20px;\n}\n\n.card-container{\n  padding: 20px 0;\n\n}\n.card-element-container{\n  border: solid 1px black;\n  border-radius: 5px;\n\n  padding: 10px;\n\n}\n.picture_container,\n.bottom_btn{\n  text-align: center;\n}\n.picture_container{\n  height: 20vw;\n  width: 100%;\n  overflow: hidden;\n  vertical-align: middle;\n}\n.resultImage\n{\n  width: 100%;\n  height: auto;\n}\n.titleNameBlock\n{\n  height:80px;\n  overflow: hidden;\n}\n", ""]);
 
 	// exports
 

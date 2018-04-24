@@ -18,9 +18,6 @@ class CardPage extends React.Component {
 
   }
 
-
-
-
   render(){
     const {cards} = this.props;
     return(

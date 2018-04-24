@@ -10,8 +10,8 @@ export function loadCardsSucess(cards){
 }
 
 
-export function displayCardSucess(cards){
-  return {type: 'DISPLAY_CARD_SUCCESS', cards};
+export function updateCardSucess(card){
+  return {type: 'UPDATE_CARD_SUCCESS', card};
 }
 
 export function loadCards(){
@@ -25,12 +25,12 @@ export function loadCards(){
   };
 }
 
-export function displayCard(){
+export function saveCard(card){
   return function(dispatch) {
 
-    return CardApi.getCardByID(card).then(displayedCard =>{
+    return CardApi.saveCard(card).then(savedCard =>{
       if(card.id){
-        dispatch(displayCardSucess(displayedCard));
+        dispatch(updateCardSucess(savedCard));
       }
     }).catch(error =>{
       throw(error);

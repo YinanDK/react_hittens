@@ -8,10 +8,10 @@ export default function cardsReducer(state=initialState.cards, action){
       return action.cards;
 
 
-    case 'DISPLAY_CARD_SUCCESS':
+    case 'UPDATE_CARD_SUCCESS':
       return [
-        ...state.filter(course => course.id !== action.course.id),
-        Object.assign({}, action.course)
+        ...state.filter(card => card.id !== action.card.id),
+        Object.assign({}, action.card)
       ];
 
 

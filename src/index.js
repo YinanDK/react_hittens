@@ -7,6 +7,7 @@ import {Router, browserHistory} from 'react-router';
 import routes from './routes';
 
 import {loadCards} from './actions/CardsActions';
+import {loadWeather} from './actions/WeatherAction';
 import configureStore from './store/configureStore';
 import {Provider} from 'react-redux';
 
@@ -17,6 +18,7 @@ import '../node_modules/toastr/build/toastr.min.css';
 
 const store = configureStore();
 store.dispatch(loadCards());
+store.dispatch(loadWeather());
 
 
 render(

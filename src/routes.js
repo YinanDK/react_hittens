@@ -7,7 +7,6 @@ import ManageCardPage from './component/picture/ManageCardPage';
 export default (
   <Route  path="/" component={App}>
     < IndexRoute  component={CardPage} />
-    <Route  path="home" component = {CardPage} />
-    <Route  path="home/:id" component = {ManageCardPage} />
+    <Route  path="/:id" component = {ManageCardPage} />
   </Route>
 );

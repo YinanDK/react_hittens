@@ -1,7 +1,11 @@
+
 nav {
   padding-top: 20px;
 }
-
+.logo{
+  width: 20%;
+  background-color: black;
+}
 .card-container{
   padding: 20px 0;
 
@@ -14,7 +18,8 @@ nav {
 
 }
 .picture_container,
-.bottom_btn{
+.bottom_btn,
+.picture_display_container{
   text-align: center;
 }
 .picture_container{
@@ -22,6 +27,14 @@ nav {
   width: 100%;
   overflow: hidden;
   vertical-align: middle;
+}
+.picture_display_container{
+  height: 30vw;
+  width: 100%;
+  border: solid 1px dimgray;
+  border-radius: 5px;
+  overflow: scroll;
+  box-shadow: dimgray;
 }
 .resultImage
 {
@@ -32,4 +45,11 @@ nav {
 {
   height:80px;
   overflow: hidden;
+}
+.title-form{
+padding: 20px 60px;
+}
+.title-input{
+margin-top: 60px;
+width: 200px;
 }
