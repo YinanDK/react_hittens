@@ -2,10 +2,6 @@
 nav {
   padding-top: 20px;
 }
-#app{
-  background-color:rgba(255,0,0,0.3) ;
-}
-
 .logo{
   width: 20%;
   background-color: black;
@@ -44,7 +40,7 @@ nav {
 .card-content-container{
   padding: 10px;
   border-radius: 10px;
-  background-color: rgba(144,0,0,0.3 );
+  background-color: rgba(0,0,0,0.1 );
 }
 .picture_container,
 .bottom_btn,
@@ -67,6 +63,7 @@ nav {
   overflow: scroll;
   box-shadow: dimgray;
 }
+
 .resultImage
 {
   width: 100%;
