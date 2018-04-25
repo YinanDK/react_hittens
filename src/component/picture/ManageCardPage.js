@@ -27,7 +27,6 @@ class ManageCardPage extends React.Component {
   }
 
   saveCard(event){
-    debugger;
     event.preventDefault();
 
     this.props.action.saveCard(this.props.card)
@@ -48,7 +47,6 @@ class ManageCardPage extends React.Component {
     return(
 
       <div>
-        <h1>Picture Page</h1>
         <TitleForm
           className="form-control-feedback"
         onChange={this.updateCardState}
@@ -93,6 +91,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     card: card
+
   };
 }
 

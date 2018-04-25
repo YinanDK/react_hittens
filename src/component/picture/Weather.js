@@ -1,49 +1,31 @@
 import React, {PropTypes} from 'react';
-import {Link, IndexLink} from 'react-router';
-
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-
-import * as WeatherAction from "../../actions/WeatherAction";
+import { OpenWeatherMap } from 'react-weather';
+import ItemList from './ItemList';
 
 
-class Weather extends React.Component {
 
-  //initialize state and call our bind functions
-  constructor(props, context){
-    super(props, context);
+const Weather = ({weather}) => {
 
-  }
+  return(
 
+    <div >
 
-  render(){
-    return(
-        <div>
-          {this.props.weather.app_temp}
-        </div>
-    );
-  }
-}
+      {weather.map((weatherItem)=>
+
+          <ItemList key={weatherItem.id} item={weatherItem} />
+      )}
+    </div>
+  );
+};
+
 
 Weather.propTypes = {
 
-  weather: PropTypes.object,
-  action: PropTypes.object
+  weather: PropTypes.array.isRequired
 };
 
-function mapStateToProps(state, ownProps){
-  return{
-    weather: state.weather
-  };
-}
-function mapDispatchToProps(dispatch){
-  return{
-    action: bindActionCreators(WeatherAction, dispatch)
-  };
-}
+export default Weather;
 
-
-export default  connect(mapStateToProps, mapDispatchToProps)(Weather);
 
 
 

@@ -3,11 +3,9 @@ import {bindActionCreators} from 'redux';
 
 import {connect} from 'react-redux';
 
-
-import {browserHistory} from 'react-router';
-import * as CardsActions from '../../actions/CardsActions';
-
 import  CardsList from './CardsList';
+import Weather from "./Weather";
+
 
 
 class CardPage extends React.Component {
@@ -19,12 +17,18 @@ class CardPage extends React.Component {
   }
 
   render(){
-    const {cards} = this.props;
+    debugger;
     return(
 
       <div>
+        <div className="Weather">
+          < Weather weather={this.props.weather} />
+        </div>
+
         <h1>Library</h1>
-        < CardsList cards ={cards} />
+        < CardsList cards ={this.props.cards} />
+
+
 
       </div>
     );
@@ -34,19 +38,21 @@ class CardPage extends React.Component {
 CardPage.propTypes = {
 
   cards: PropTypes.array,
-  action: PropTypes.object
+  action: PropTypes.object,
+  weather: PropTypes.array
 };
 
+
+
 function mapStateToProps(state, ownProps){
+
+debugger;
   return{
-    cards: state.cards
-  };
-}
-function mapDispatchToProps(dispatch){
-  return{
-    action: bindActionCreators(CardsActions, dispatch)
+    cards: state.cards,
+    weather: state.weather
   };
 }
 
 
-export default  connect(mapStateToProps, mapDispatchToProps)(CardPage);
+
+export default  connect(mapStateToProps)(CardPage);
