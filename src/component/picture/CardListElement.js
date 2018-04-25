@@ -6,6 +6,7 @@ const CardListElement = ({card})=>{
   return (
 
       <div className="col-sm-4 card-container card-element-container">
+        <div className="card-content-container">
           <div className="picture_container" >
             <img src = {card.image} className="resultImage" />
           </div>
@@ -13,6 +14,7 @@ const CardListElement = ({card})=>{
           <div className="bottom_btn">
             <Link className="btn btn-primary" to={'/'+card.id}>View</Link>
           </div>
+        </div>
     </div>
   );
 };

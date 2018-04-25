@@ -10,6 +10,9 @@ const Header = () =>{
       <IndexLink to ="/" activeClassName = "active">
         <img className="logo" src="https://artlandapp.com/wp-content/uploads/2017/01/Artland_logo_full_pos.png" />
       </IndexLink>
+      {"|"}
+      <Link className="nav-link" to = "/" activeClassName = "active"> Library </Link>
+
     </nav>
 
 

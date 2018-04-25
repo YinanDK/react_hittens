@@ -2,21 +2,49 @@
 nav {
   padding-top: 20px;
 }
+#app{
+  background-color:rgba(255,0,0,0.3) ;
+}
 
 .logo{
   width: 20%;
   background-color: black;
 }
+
+.nav-link{
+  font-size: 20px;
+  color: black;
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  color: darkgray;
+}
+.nav-link:link {
+  text-decoration: none;
+  color: darkgray;
+}
+.nav-link:visited {
+  text-decoration: none;
+  olor: black;
+}
+
+.nav-link:active {
+  text-decoration: none;
+  color: darkgray;
+}
 .card-container{
   padding: 20px 0;
 
 }
-.card-element-container{
-  border: solid 1px black;
+.card-element-container {
   border-radius: 5px;
+}
 
+.card-content-container{
   padding: 10px;
-
+  border-radius: 10px;
+  background-color: rgba(144,0,0,0.3 );
 }
 .picture_container,
 .bottom_btn,
@@ -33,7 +61,8 @@ nav {
   height: 30vw;
   width: 100%;
   margin-top: 30px;
-  border: solid 1px dimgray;
+  border: solid 2px rgb(244, 244, 244) ;
+  box-shadow: 5px 5px 5px rgba(244, 244, 244, 0.6);
   border-radius: 5px;
   overflow: scroll;
   box-shadow: dimgray;
